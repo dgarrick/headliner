@@ -15,3 +15,10 @@ I highly suggest using [virtual environments](https://virtualenvwrapper.readthed
 `pip install nltk`
 
 `pip install annoy`
+
+You may also need to install corpora for nltk. Open a new python REPL instance in a terminal and type the following:
+
+`>>> import nltk`
+`>>> nltk.download()`
+
+And then download all corpora.

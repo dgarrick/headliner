@@ -11,6 +11,18 @@
     {
       "name": "Reuters: Technology News",
       "url": "http://feeds.reuters.com/reuters/technologyNews"
+    },
+    {
+      "name": "The New York Times: US News",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/US.xml"
+    },
+    {
+      "name": "Russia Today",
+      "url": "https://www.rt.com/rss/"
+    },
+    {
+      "name": "Al Jazeera America",
+      "url": "http://america.aljazeera.com/topics/topic/categories/us.html"
     }
   ]
 }

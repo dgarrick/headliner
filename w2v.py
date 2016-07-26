@@ -2,6 +2,7 @@
 import word2vec
 import os.path
 import random
+import utilities
 
 
 class W2V:
@@ -32,11 +33,15 @@ class W2V:
         # Sanity check: similar words to 'rocks'
         self.print_similar_words_to('rocks')
         # Grab a random index from within the range of the vocabulary
-        random_index = random.randint(0, words-1)
-        random_word = self.model.vocab[random_index]
-        print("\nA random word (index " + str(random_index) + ") from this set... '" + random_word + "'")
+        random_word = self.get_random_word(words)
         print("\nVectors corresponnding to '" + random_word + "': " + str(self.model[random_word]))
         self.print_similar_words_to(random_word)
+        random_sentence = [self.model[self.get_random_word(words)] for i in range(0, 3)]
+        utilities.average_vector(random_sentence)
+
+    def get_random_word(self, words):
+        random_index = random.randint(0, words - 1)
+        return self.model.vocab[random_index]
 
     def print_similar_words_to(self, word):
         indices, metrics = self.model.cosine(word)

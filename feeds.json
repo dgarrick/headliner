@@ -1,0 +1,16 @@
+{
+  "feeds": [
+    {
+      "name": "BBC World",
+      "url": "http://feeds.bbci.co.uk/news/rss.xml?edition=uk"
+    },
+    {
+      "name": "The Guardian UK",
+      "url": "https://www.theguardian.com/uk/rss"
+    },
+    {
+      "name": "Reuters: Technology News",
+      "url": "http://feeds.reuters.com/reuters/technologyNews"
+    }
+  ]
+}

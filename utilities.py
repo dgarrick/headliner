@@ -8,13 +8,11 @@ def average_vector(vecs):
     avg_vec = np.zeros(vec_length, dtype=np.float)
     # Sum all components
     for vec in vecs:
-        print(vec)
         for index, value in enumerate(vec):
             avg_vec[index] += vec[index]
     # Divide by number of vecs seen
     for index in range(0, len(avg_vec)):
         avg_vec[index] /= num_vecs
-    print avg_vec
     return avg_vec
 
 

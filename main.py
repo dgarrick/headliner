@@ -8,6 +8,8 @@ news = News()
 articles = news.get_articles()
 pprint(articles)
 w2vobj.train()
+article_vecs = [w2vobj.get_sentence_vector(article['cleaned_title']) for article in articles]
+pprint(article_vecs)
 # Demo stuff here
 # w2vobj.about()
 

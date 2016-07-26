@@ -21,10 +21,10 @@ class W2V:
             word2vec.word2vec(self.input_fname, self.trained_fname, size=self.train_dimensions)
         else:
             print("Trained data seems to exist at '" + self.trained_fname + "'")
-
-    def about(self):
         print("Loading training results...")
         self.model = word2vec.load(self.trained_fname, kind='bin')
+
+    def about(self):
         words, dims = self.model.vectors.shape
         print("\nShape: " + str(words) + " words")
         print("\nDimensions: " + str(dims) + " dimensions")
@@ -48,3 +48,7 @@ class W2V:
         print("\nSimilar words to '" + str(word) + "'")
         for index, metric in zip(indices, metrics):
             print("\tword: '" + str(self.model.vocab[index]) + "'\tvalue: " + str(metric))
+
+    def get_sentence_vector(self, sentence):
+        # Get vectors for each word in the sentence that appears in our training data, average them together and return
+        return utilities.average_vector([self.model[word] for word in sentence.split() if word in self.model])

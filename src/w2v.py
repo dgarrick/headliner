@@ -8,12 +8,12 @@ import utilities
 
 
 class W2V:
-    def __init__(self):
-        self.input_fname = 'resources/bigsample'
+    def __init__(self, input_fname, trained_fname, num_dims):
+        self.input_fname = input_fname
         # If no file exists with this name, we will train and store the trained date here.
-        self.trained_fname = 'resources/output30'
+        self.trained_fname = trained_fname
         # 30 dims seems to be a good value
-        self.train_dimensions = 30
+        self.train_dimensions = num_dims
         self.model = None
 
     def train(self):

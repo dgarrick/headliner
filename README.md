@@ -13,3 +13,5 @@ I highly suggest using [virtual environments](https://virtualenvwrapper.readthed
 `pip install feedparser`
 
 `pip install nltk`
+
+`pip install annoy`

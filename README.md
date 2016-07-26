@@ -9,3 +9,5 @@ I highly suggest using [virtual environments](https://virtualenvwrapper.readthed
 `pip install cython`
 
 `pip install word2vec`
+
+`pip install feedparser`

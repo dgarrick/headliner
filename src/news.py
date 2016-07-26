@@ -1,7 +1,8 @@
-import feedparser
 import json
 from timeit import default_timer as timer
+import feedparser
 from nltk.corpus import stopwords
+
 from utilities import strip_punctuation
 
 
@@ -12,7 +13,7 @@ class News:
         self.stopwords = stopwords.words("english")
 
     def get_articles(self):
-        with open('feeds.json') as feeds_file:
+        with open('resources/feeds.json') as feeds_file:
             feeds = json.load(feeds_file)
 
         for feed in feeds['feeds']:

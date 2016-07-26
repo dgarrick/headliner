@@ -1,15 +1,17 @@
 # Required packages: word2vec (which requires numpy and cython)
-import word2vec
 import os.path
 import random
+
+import word2vec
+
 import utilities
 
 
 class W2V:
     def __init__(self):
-        self.input_fname = 'bigsample'
+        self.input_fname = 'resources/bigsample'
         # If no file exists with this name, we will train and store the trained date here.
-        self.trained_fname = 'output30'
+        self.trained_fname = 'resources/output30'
         # 30 dims seems to be a good value
         self.train_dimensions = 30
         self.model = None

@@ -12,7 +12,6 @@ class News:
 
     def __init__(self):
         self.articles = []
-        self.article_queue = Queue.Queue()
         self.stopwords = stopwords.words("english")
 
     def get_feed(self, feed):
@@ -23,7 +22,9 @@ class News:
               "' in " + str((end - start)) + " seconds")
         for ent in parsed_feed.entries:
             sanitized_title = strip_punctuation(ent.title)
-            self.article_queue.put({'raw_title': ent.title,
+            """python lists are threadsafe. Their data is not. We are only adding to the list,
+            not accessing or changing data, so this op is safe"""
+            self.articles.append({'raw_title': ent.title,
                                   'cleaned_title': ' '.join(
                                       [word for word in sanitized_title.split() if word not in self.stopwords]),
                                   'source': feed['name'],
@@ -32,9 +33,9 @@ class News:
     def get_articles(self):
         with open('../resources/feeds.json') as feeds_file:
             feeds = json.load(feeds_file)
-        pool = Pool(len(feeds))
+        """this is OK for now. If this process gets slow as more feeds are added, reduce size of pool"""
+        pool = Pool(len(feeds['feeds']))
         pool.map(self.get_feed, feeds['feeds'])
-
-        while not self.article_queue.empty:
-            self.articles.append(self.article_queue.get())
+        pool.close()
+        pool.join()
         return self.articles

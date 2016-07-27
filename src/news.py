@@ -2,7 +2,6 @@ import json
 from timeit import default_timer as timer
 import feedparser
 from nltk.corpus import stopwords
-import Queue
 from multiprocessing.dummy import Pool
 
 from utilities import strip_punctuation

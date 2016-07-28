@@ -2,6 +2,7 @@ import json
 from timeit import default_timer as timer
 import feedparser
 from nltk.corpus import stopwords
+from multiprocessing.dummy import Pool
 
 from utilities import strip_punctuation
 
@@ -12,21 +13,28 @@ class News:
         self.articles = []
         self.stopwords = stopwords.words("english")
 
-    def get_articles(self):
-        with open('resources/feeds.json') as feeds_file:
-            feeds = json.load(feeds_file)
+    def get_feed(self, feed):
+        start = timer()
+        parsed_feed = feedparser.parse(feed['url'])
+        end = timer()
+        print(str(len(parsed_feed.entries)) + " Articles from '" + feed['name'] +
+              "' in " + str((end - start)) + " seconds")
+        for ent in parsed_feed.entries:
+            sanitized_title = strip_punctuation(ent.title)
+            """python lists are threadsafe. Their data is not. We are only adding to the list,
+            not accessing or changing data, so this op is safe"""
+            self.articles.append({'raw_title': ent.title,
+                                  'cleaned_title': ' '.join(
+                                      [word for word in sanitized_title.split() if word not in self.stopwords]),
+                                  'source': feed['name'],
+                                  'link': ent.link})
 
-        for feed in feeds['feeds']:
-            start = timer()
-            parsed_feed = feedparser.parse(feed['url'])
-            end = timer()
-            print(str(len(parsed_feed.entries)) + " Articles from '" + feed['name'] +
-                  "' in " + str((end-start)) + " seconds")
-            for ent in parsed_feed.entries:
-                sanitized_title = strip_punctuation(ent.title)
-                self.articles.append({'raw_title': ent.title,
-                                      'cleaned_title': ' '.join(
-                                          [word for word in sanitized_title.split() if word not in self.stopwords]),
-                                      'source': feed['name'],
-                                      'link': ent.link})
+    def get_articles(self):
+        with open('../resources/feeds.json') as feeds_file:
+            feeds = json.load(feeds_file)
+        """this is OK for now. If this process gets slow as more feeds are added, reduce size of pool"""
+        pool = Pool(len(feeds['feeds']))
+        pool.map(self.get_feed, feeds['feeds'])
+        pool.close()
+        pool.join()
         return self.articles

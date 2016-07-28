@@ -2,7 +2,6 @@ from w2v import W2V
 from news import News
 from clustering import Clustering
 import sys
-from pprint import pprint
 
 
 def get_args():

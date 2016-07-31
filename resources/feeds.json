@@ -19,6 +19,10 @@
     {
       "name": "Russia Today",
       "url": "https://www.rt.com/rss/"
+    },
+    {
+      "name": "Al Jazeera America",
+      "url": "http://america.aljazeera.com/topics/topic/categories/us.html"
     }
   ]
 }

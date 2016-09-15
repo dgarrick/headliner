@@ -30,7 +30,10 @@ articles = news.get_articles()
 w2vobj.train()
 article_vecs = [w2vobj.get_sentence_vector(article['cleaned_title']) for article in articles]
 clustering = Clustering(article_vecs)
+for head in clustering.headlines:
+    print head
 zeroes_closest_indices = clustering.get_neighbors_vector(article_vecs[0])
+print(zeroes_closest_indices)
 print("The ten closest articles to: '" + articles[0]['raw_title'] + "' are...")
 for index, distance in zip(zeroes_closest_indices[0], zeroes_closest_indices[1]):
     print articles[index]['raw_title'] + "\n\tNews Source: " + articles[index]['source'] \

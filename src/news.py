@@ -21,11 +21,14 @@ class News:
               "' in " + str((end - start)) + " seconds")
         for ent in parsed_feed.entries:
             sanitized_title = strip_punctuation(ent.title)
+            cleaned_title = [word for word in sanitized_title.split() if word not in self.stopwords]
+            if len(cleaned_title) == 0:
+                print "Found entry whose title is all stopwords: "+ent.title+" from: "+feed['name']
+                return
             """python lists are threadsafe. Their data is not. We are only adding to the list,
             not accessing or changing data, so this op is safe"""
             self.articles.append({'raw_title': ent.title,
-                                  'cleaned_title': ' '.join(
-                                      [word for word in sanitized_title.split() if word not in self.stopwords]),
+                                  'cleaned_title': ' '.join(cleaned_title),
                                   'source': feed['name'],
                                   'link': ent.link})
 

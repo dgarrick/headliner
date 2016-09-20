@@ -30,13 +30,17 @@ articles = news.get_articles()
 w2vobj.train()
 article_vecs = [w2vobj.get_sentence_vector(article['cleaned_title']) for article in articles]
 
-clustering = Clustering(article_vecs,10)
-ranked_vecs = clustering.kmeans_cluster()
-print("The top trending articles are: ")
-for vec, score in ranked_vecs:
-    index = clustering.get_vector_index(vec)[0]
-    print articles[index]['raw_title'] + "\n\tNews Source: " + articles[index]['source'] \
-          + "\n\theadline cleaned: " + articles[index]['cleaned_title']
+clustering = Clustering(article_vecs)
+clustering.kmeans_cluster(rank_clusters=True)
+clustered_vecs = clustering.cluster_to_vec_index
+#print(clustered_vecs)
+for i in xrange(clustering.num_clusters):
+    cluster = clustered_vecs[i]
+    print(cluster)
+    print("Cluster "+str(i))
+    for index in cluster:
+        print articles[index]['raw_title'] + "\n\tNews Source: " + articles[index]['source'] \
+              + "\n\theadline cleaned: " + articles[index]['cleaned_title']
 
 """vec, dist = ranked_vecs[0]
 zeroes_closest_indices = clustering.get_neighbors_vector(vec)

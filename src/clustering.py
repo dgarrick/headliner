@@ -5,13 +5,14 @@ import bisect
 
 class Clustering:
 
-    def __init__(self, vecs, per_cluster_avg):
+    def __init__(self, vecs):
         self.vec_length = len(vecs[0])
         self.vecs = vecs
-        self.num_clusters = self.vec_length / per_cluster_avg
-        self.cluster_to_vec = {}
+        self.num_clusters = int(len(vecs) * 0.20)
+        print(self.num_clusters)
+        self.cluster_to_vec_index = {}
         self.labels = []
-        self.kmeans = KMeans(n_clusters = self.num_clusters)
+        self.kmeans = KMeans(n_clusters=self.num_clusters)
         self.annoy = AnnoyIndex(self.vec_length, metric='euclidean')
         for i, vec in enumerate(self.vecs):
             self.annoy.add_item(i, vec)
@@ -21,9 +22,6 @@ class Clustering:
     def get_neighbors_vector(self, vec):
         return self.annoy.get_nns_by_vector(vec, 10, include_distances=True)
 
-    def get_vector_index(self, vec):
-        return self.annoy.get_nns_by_vector(vec, 1, include_distances=False)
-
     @staticmethod
     def find_sorted_index(dists, total):
         """Returns None if no index can be found"""
@@ -31,34 +29,39 @@ class Clustering:
             if total > dist:
                 return i
 
-    def label_clusters(self):
+    def rank_clusters(self):
         """Finds the top N vectors which have the most dense clustering to other vectors.
-           Returns a list of vectors zipped with their respective density score"""
+           Returns a list of vectors zipped with their respective density score
         for i in xrange(self.num_clusters):
-            cluster_vecs = self.cluster_to_vec.get(i)
-            num_elems = len(cluster_vecs)
+            cluster_vec_indices = self.cluster_to_vec_index[i]
+            num_elems = len(cluster_vec_indices)
             dists = numpy.zeros(num_elems)
-            labels = [None] * num_elems
-            for vec in cluster_vecs:
+            for j in cluster_vec_indices:
+                vec = self.vecs[j]
                 total = 0
                 closest_arr = self.get_neighbors_vector(vec)[1]
                 for dist in closest_arr:
                     if dist > 0:
                         total += 1.0 / dist
                 index = 0
-                local_vec = vec
                 while index is not None:
                     index = self.find_sorted_index(dists, total)
+                    cur_idx = 0
                     if index is not None:
                         tmp_total = dists[index]
-                        tmp_vec = labels[index]
+                        tmp_idx = cluster_vec_indices[index]
                         numpy.put(dists, index, total)
-                        labels[index] = local_vec
+                        cluster_vec_indices[index] = cur_idx
                         total = tmp_total
-                        local_vec = tmp_vec
-            return zip(labels, dists)
+                        cur_idx = tmp_idx
+            self.cluster_to_vec_index[i] = cluster_vec_indices"""
 
-    def kmeans_cluster(self):
-        clusters = self.kmeans.fit_predict(self.vecs)
-        self.cluster_to_vec = dict(zip(self.vecs, clusters))
-        self.labels = self.label_clusters() 
+    def kmeans_cluster(self, rank_clusters=False):
+        vec_index_to_cluster = self.kmeans.fit_predict(self.vecs)
+        vec_indices = range(0, len(self.vecs))
+        for j in xrange(0, self.num_clusters):
+            self.cluster_to_vec_index[j] = []
+        for i in xrange(0, len(vec_indices)):
+            self.cluster_to_vec_index[vec_index_to_cluster[i]].append(vec_indices[i])
+        if rank_clusters:
+            self.rank_clusters()

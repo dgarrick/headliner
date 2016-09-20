@@ -9,7 +9,7 @@ class Clustering:
         self.vec_length = len(vecs[0])
         self.vecs = vecs
         self.num_clusters = int(len(vecs) * 0.20)
-        print(self.num_clusters)
+        self.threshold = 0.25
         self.cluster_to_vec_index = {}
         self.labels = []
         self.kmeans = KMeans(n_clusters=self.num_clusters)
@@ -31,7 +31,7 @@ class Clustering:
 
     def rank_clusters(self):
         """Finds the top N vectors which have the most dense clustering to other vectors.
-           Returns a list of vectors zipped with their respective density score
+           Returns a list of vectors zipped with their respective density score"""
         for i in xrange(self.num_clusters):
             cluster_vec_indices = self.cluster_to_vec_index[i]
             num_elems = len(cluster_vec_indices)
@@ -44,9 +44,9 @@ class Clustering:
                     if dist > 0:
                         total += 1.0 / dist
                 index = 0
+                cur_idx = j
                 while index is not None:
                     index = self.find_sorted_index(dists, total)
-                    cur_idx = 0
                     if index is not None:
                         tmp_total = dists[index]
                         tmp_idx = cluster_vec_indices[index]
@@ -54,7 +54,7 @@ class Clustering:
                         cluster_vec_indices[index] = cur_idx
                         total = tmp_total
                         cur_idx = tmp_idx
-            self.cluster_to_vec_index[i] = cluster_vec_indices"""
+            self.cluster_to_vec_index[i] = cluster_vec_indices
 
     def kmeans_cluster(self, rank_clusters=False):
         vec_index_to_cluster = self.kmeans.fit_predict(self.vecs)

@@ -2,8 +2,10 @@ import numpy as np
 import re
 
 
-def average_vector(vecs):
+def average_vector(vecs, k):
     num_vecs = len(vecs)
+    if num_vecs == 0:
+        return np.zeros(k, dtype=np.float)
     vec_length = len(vecs[0])
     avg_vec = np.zeros(vec_length, dtype=np.float)
     # Sum all components

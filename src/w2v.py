@@ -39,7 +39,7 @@ class W2V:
         print("\nVectors corresponnding to '" + random_word + "': " + str(self.model[random_word]))
         self.print_similar_words_to(random_word)
         random_sentence = [self.model[self.get_random_word(words)] for i in range(0, 3)]
-        utilities.average_vector(random_sentence)
+        utilities.average_vector(random_sentence, dims)
 
     def get_random_word(self, words):
         random_index = random.randint(0, words - 1)
@@ -53,4 +53,4 @@ class W2V:
 
     def get_sentence_vector(self, sentence):
         # Get vectors for each word in the sentence that appears in our training data, average them together and return
-        return utilities.average_vector([self.model[word] for word in sentence.split() if word in self.model])
+        return utilities.average_vector([self.model[word] for word in sentence.split() if word in self.model], int(self.train_dimensions))

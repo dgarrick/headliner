@@ -20,7 +20,7 @@ I highly suggest using [virtual environments](https://virtualenvwrapper.readthed
 
 `pip install scipy`
 
-`pip install sklearn'
+`pip install sklearn`
 
 You may also need to install corpora for nltk. Open a new python REPL instance in a terminal and type the following:
 

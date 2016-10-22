@@ -6,7 +6,7 @@ import sys
 
 
 def print_kmeans_clusters(clustering, should_prune, limit):
-    clustering.kmeans_cluster(prune_clusters=should_prune, limit=limit)
+    clustering.cluster(prune_clusters=should_prune, limit=limit)
     clustered_vecs = clustering.cluster_to_vec_index
     for i in xrange(len(clustered_vecs)):
         if i in clustered_vecs:
@@ -19,7 +19,7 @@ def print_kmeans_clusters(clustering, should_prune, limit):
 
 
 def print_random_kmeans_cluster(clustering, should_prune, limit):
-    clustering.kmeans_cluster(prune_clusters=should_prune, limit=limit)
+    clustering.cluster(prune_clusters=should_prune, limit=limit)
     clustered_vecs = clustering.cluster_to_vec_index
     i = random.randint(0, len(clustered_vecs))
     if i in clustered_vecs:
@@ -72,13 +72,11 @@ article_vecs = [w2vobj.get_sentence_vector(article['cleaned_title']) for article
 cluster_obj = Clustering(article_vecs)
 if args['-c'] == 'kmeans':
     if args['-p'] == 'true' or args['-p'] == 'True':
-        print_random_kmeans_cluster(cluster_obj, True, int(args['-l']))
+        print_kmeans_clusters(cluster_obj, True, int(args['-l']))
     else:
-        print_random_kmeans_cluster(cluster_obj, False, int(args['-l']))
+        print_kmeans_clusters(cluster_obj, False, int(args['-l']))
 else:
     print_ann_clusters(cluster_obj)
 
 # Demo stuff here
 # w2vobj.about()
-
-

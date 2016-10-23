@@ -46,7 +46,7 @@ if args['-c'] == 'kmeans':
         print("json dump complete")
     else:
         #TODO save appropriate json
-        utilties.json_ann_clusters(cluster_obj)
+        utilties.json_ann_clusters(cluster_obj, articles)
 
 # Demo stuff here
 # w2vobj.about()

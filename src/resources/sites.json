@@ -1,0 +1,80 @@
+{
+  "sites" : [
+    {
+      "name" : "Yahoo",
+      "url" : "news.yahoo.com"
+    },
+    {
+      "name" : "CNN",
+      "url" : "cnn.com"
+    },
+    {
+      "name" : "Huffington Post",
+      "url" : "huffingtonpost.com"
+    },
+    {
+      "name" : "The New York Times",
+      "url" : "nytimes.com"
+    },
+    {
+      "name" : "CBS",
+      "url" : "cbs.com"
+    },
+    {
+      "name" : "Fox News",
+      "url" : "foxnews.com"
+    },
+    {
+      "name" : "Forbes",
+      "url" : "forbes.com"
+    },
+    {
+      "name" : "NBC",
+      "url" : "nbcnews.com"
+    },
+    {
+      "name" : "LA Times",
+      "url" : "latimes.com"
+    },
+    {
+      "name" : "The Guardian",
+      "url" : "theguardian.com"
+    },
+    {
+      "name" : "CNBC",
+      "url" : "cnbc"
+    },
+    {
+      "name" : "The Houston Chronicle",
+      "url" : "chron.com"
+    },
+    {
+      "name" : "The Wall Street Journal",
+      "url" : "wsj.com"
+    },
+    {
+      "name" : "BBC",
+      "url" : "bbc.co.uk"
+    },
+    {
+      "name" : "USA Today",
+      "url" : "usatoday.com"
+    },
+    {
+      "name" : "Bloomberg",
+      "url" : "bloomberg.com"
+    },
+    {
+      "name" : "Time",
+      "url" : "time.com"
+    },
+    {
+      "name" : "Drudge Report",
+      "url" : "drudgereport.com"
+    },
+    {
+      "name" : "US News",
+      "url" : "usnews.com"
+    }
+  ]
+}

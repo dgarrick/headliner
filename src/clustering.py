@@ -1,5 +1,5 @@
 from annoy import AnnoyIndex
-from sklearn.cluster import KMeans
+from sklearn.cluster import AgglomerativeClustering
 import numpy
 
 class Clustering:
@@ -7,10 +7,10 @@ class Clustering:
     def __init__(self, vecs):
         self.vec_length = len(vecs[0])
         self.vecs = vecs
-        self.num_clusters = int(len(vecs) * 0.20)
+        self.num_clusters = int(len(vecs)*.66)
         self.cluster_to_vec_index = {}
         self.labels = []
-        self.cluster_func = KMeans(n_clusters=self.num_clusters)
+        self.cluster_func = AgglomerativeClustering(n_clusters=self.num_clusters)
         self.annoy = AnnoyIndex(self.vec_length, metric='euclidean')
         for i, vec in enumerate(self.vecs):
             if vec is not None:
@@ -27,7 +27,7 @@ class Clustering:
             if len(self.cluster_to_vec_index[i]) < limit:
                 del self.cluster_to_vec_index[i]
 
-    def kmeans_cluster(self, limit=2, prune_clusters=False):
+    def cluster(self, limit=2, prune_clusters=False):
         vec_index_to_cluster = self.cluster_func.fit_predict(self.vecs)
         vec_indices = range(0, len(self.vecs))
         for j in xrange(0, self.num_clusters):

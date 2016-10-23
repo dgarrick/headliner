@@ -39,16 +39,14 @@ article_vecs = [w2vobj.get_sentence_vector(article['cleaned_title']) for article
 cluster_obj = Clustering(article_vecs)
 if args['-c'] == 'kmeans':
     if args['-p'] == 'true' or args['-p'] == 'True':
-        #TODO save appropriate json
         utilities.json_kmeans_clusters(cluster_obj, articles, True, int(args['-l']))
         print("json dump complete")
     else:
-        #TODO save appropriate json
         utilities.json_kmeans_clusters(cluster_obj, articles, False, int(args['-l']))
         print("json dump complete")
-    #else:
+    else:
         #TODO save appropriate json
-        #json_ann_clusters(cluster_obj)
+        json_ann_clusters(cluster_obj)
 
-        # Demo stuff here
-        # w2vobj.about()
+# Demo stuff here
+# w2vobj.about()

@@ -27,7 +27,7 @@ def json_kmeans_clusters(clustering, articles, should_prune, limit):
 
 
 
-def print_ann_clusters(clustering):
+def print_ann_clusters(clustering, articles):
     zeroes_closest_indices = clustering.get_neighbors_vector(article_vecs[0])
     print("The ten closest articles to: '" + articles[0]['raw_title'] + "' are...")
     for index, distance in zip(zeroes_closest_indices[0], zeroes_closest_indices[1]):

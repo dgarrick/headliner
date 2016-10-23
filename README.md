@@ -38,4 +38,4 @@ If you want to run the REST API as well, you will also need:
 
 To run the API, simply run:
 
-`gunicorn headliner:api`
+`gunicorn headliner:api` from within `src/api`

@@ -10,7 +10,7 @@ class Clustering:
         self.num_clusters = int(len(vecs)*.66)
         self.cluster_to_vec_index = {}
         self.labels = []
-        self.cluster_func = AgglomerativeClustering(n_clusters=self.num_clusters)
+        self.cluster_func = AgglomerativeClustering(n_clusters=self.num_clusters, affinity="manhattan", linkage="complete")
         self.annoy = AnnoyIndex(self.vec_length, metric='euclidean')
         for i, vec in enumerate(self.vecs):
             if vec is not None:

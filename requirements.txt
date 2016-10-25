@@ -8,3 +8,4 @@ scipy==0.18.0
 sklearn==0.0
 gunicorn==19.6.0
 falcon==1.0.0
+virtualenv=15.0.2 --no-site-packages

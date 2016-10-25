@@ -14,6 +14,18 @@ You may also need to install corpora for nltk. Open a new python REPL instance i
 
 And then download all corpora.
 
+To run the heroku build, first install heroku cli:
+
+https://devcenter.heroku.com/articles/heroku-command-line
+
+For a local build, run:
+
+`heroku local`
+
 To run the REST API, simply run:
 
-`gunicorn headliner:api` from within `src/api`
+`heroku local web`
+
+To run the data pipeline, run:
+
+`heroku local worker`

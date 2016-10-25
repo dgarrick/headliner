@@ -22,7 +22,7 @@ def json_kmeans_clusters(clustering, articles, should_prune, limit):
             json_clusters[str(i)] = json_cluster
     json_output['length'] = length
     json_output['clusters'] = json_clusters
-    with open('../resources/clusters.json', 'w') as outfile:
+    with open('src/resources/clusters.json', 'w') as outfile:
         json.dump(json_output, outfile)
 
 

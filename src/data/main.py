@@ -30,7 +30,7 @@ def get_args():
 print("Main")
 args = get_args()
 if args['-t'] == '':
-    args['-t'] = '../resources/output' + args['-k']
+    args['-t'] = 'src/resources/output' + args['-k']
 w2vobj = W2V(args['-i'], args['-t'], args['-k'])
 news = News()
 articles = news.get_articles()

@@ -33,7 +33,7 @@ class News:
                                   'link': ent.link})
 
     def get_articles(self):
-        with open('../resources/feeds.json') as feeds_file:
+        with open('src/resources/feeds.json') as feeds_file:
             feeds = json.load(feeds_file)
         """this is OK for now. If this process gets slow as more feeds are added, reduce size of pool"""
         pool = Pool(len(feeds['feeds']))

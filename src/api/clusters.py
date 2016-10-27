@@ -1,4 +1,3 @@
-import falcon
 import os
 import json
 import traceback
@@ -19,6 +18,3 @@ class Clusters:
 
         else:
             resp.body = 'no data!'
-
-api = falcon.API()
-api.add_route('/clusters', Clusters('../../resources/clusters.json'))

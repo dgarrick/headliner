@@ -5,22 +5,20 @@ import re
 def json_kmeans_clusters(clustering, articles, should_prune, limit):
     clustering.cluster(prune_clusters=should_prune, limit=limit)
     clustered_vecs = clustering.cluster_to_vec_index
-    json_output = {}
-    json_clusters = {}
+    json_clusters = []
     for i in xrange(len(clustered_vecs)):
         if i in clustered_vecs:
-            json_cluster = {}
+            json_cluster = []
             cluster = clustered_vecs[i]
             for index in cluster:
                 json_article = {}
                 json_article['raw'] = articles[index]['raw_title']
                 json_article['source'] = articles[index]['source']
                 json_article['link'] = articles[index]['link']
-                json_cluster[str(index)] = json_article
-            json_clusters[str(i)] = json_cluster
-    json_output['clusters'] = json_clusters
+                json_cluster.append(json_article)
+            json_clusters.append(json_cluster)
     with open('src/resources/clusters.json', 'w') as outfile:
-        json.dump(json_output, outfile)
+        json.dump(json_clusters, outfile)
 
 
 

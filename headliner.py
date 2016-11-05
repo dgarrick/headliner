@@ -1,7 +1,12 @@
-import falcon
-from src.api.staticfile import StaticFile
+from flask import Flask, render_template
 from src.api.clusters import Clusters
 
-api = falcon.API()
-api.add_route('/', StaticFile("src/static/index.html"))
-api.add_route('/clusters', Clusters('src/resources/clusters.json'))
+app = Flask(__name__)
+
+@app.route('/')
+def get_clusters():
+    clusters = Clusters('src/resources/clusters.json').get()
+    return render_template('clusters.html', clusters=clusters)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')

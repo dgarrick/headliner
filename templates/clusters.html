@@ -1,0 +1,13 @@
+<!doctype html>
+<title>headlinr</title>
+{% block body %}
+<table>
+{% for clust in clusters %}
+    <p>
+    {% for link in clust %}
+      <tr><td><a href={{ link['link'] }} style="display:block;">{{ link['raw']  }}</a></td></tr>
+    {% endfor %}
+    <p>
+{% endfor %}
+</table>
+{% endblock %}

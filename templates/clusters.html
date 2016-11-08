@@ -1,13 +1,15 @@
 <!doctype html>
 <title>headlinr</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='clusters.css') }}">
 {% block body %}
-<table>
+<h1 class="headline">headlinr</h1>
 {% for clust in clusters %}
-    <p>
+  <div class="cluster">
     {% for link in clust %}
-      <tr><td><a href={{ link['link'] }} style="display:block;">{{ link['raw']  }}</a></td></tr>
+      <div class="link">
+        <a href={{ link['link'] }} style="display:block;">{{ link['raw']  }}</a>
+      </div>
     {% endfor %}
-    <p>
+  </div>
 {% endfor %}
-</table>
 {% endblock %}

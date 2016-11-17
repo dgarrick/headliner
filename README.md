@@ -30,4 +30,4 @@ To run the REST API, simply run:
 
 To run the data pipeline, run:
 
-`heroku local worker`
+`python src/data/main.py`

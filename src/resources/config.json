@@ -1,0 +1,8 @@
+{
+      "-input": "../resources/rsstraining",
+      "-train": "",
+      "-k": "30",
+      "-cluster": "agg",
+      "-prune": "True",
+      "-limit": "3"
+}

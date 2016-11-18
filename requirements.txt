@@ -1,5 +1,5 @@
-numpy==1.11.1
 Cython==0.24
+numpy==1.11.1
 word2vec==0.9.1
 feedparser==5.1.3
 nltk==2.0.5

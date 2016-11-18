@@ -10,7 +10,7 @@ output_fname = str(uuid.uuid4()) + ".txt"
 articles = []
 stopword = stopwords.words("english")
 
-with open("resources/feeds.json") as feeds_file:
+with open("src/resources/feeds.json") as feeds_file:
     feeds = json.load(feeds_file)
 
 target = open(output_fname, 'w')
@@ -25,3 +25,4 @@ for feed in feeds['feeds']:
 
 print("Done, your data is at " + output_fname)
 target.close()
+

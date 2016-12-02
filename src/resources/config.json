@@ -1,5 +1,5 @@
 {
-      "-input": "../resources/rsstraining",
+      "-input": "../resources/scorpio",
       "-train": "",
       "-k": "30",
       "-cluster": "agg",

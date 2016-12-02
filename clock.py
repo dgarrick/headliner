@@ -2,9 +2,9 @@ import src.data.main
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 sched = BlockingScheduler()
+sched.start()
 
-@sched.scheduled_job('interval', hours=6)
+@sched.interval_schedule(minutes=1)
 def timed_clusters():
     main.dump_clusters()
 
-sched.start()

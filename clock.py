@@ -4,7 +4,6 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 sched = BlockingScheduler()
 sched.start()
 
-@sched.interval_schedule(minutes=1)
+@sched.interval_schedule(hours=6)
 def timed_clusters():
     main.dump_clusters()
-

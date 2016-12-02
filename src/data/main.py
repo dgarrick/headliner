@@ -45,13 +45,13 @@ def dump_clusters():
     cluster_obj = Clustering(article_vecs)
     if args['-cluster'] == 'agg':
         if args['-prune'] == 'true' or args['-prune'] == 'True':
-            utilities.json_kmeans_clusters(cluster_obj, articles, True, int(args['-limit']))
-            print("json dump complete")
+            utilities.redis_kmeans_clusters(cluster_obj, articles, True, int(args['-limit']))
+            print("redis dump complete")
         else:
-            utilities.json_kmeans_clusters(cluster_obj, articles, False, int(args['-limit']))
-            print("json dump complete")
+            utilities.redis_kmeans_clusters(cluster_obj, articles, False, int(args['-limit']))
+            print("redis dump complete")
     else:
-        #TODO save appropriate json
+        #TODO dump to redis
         utilties.print_ann_clusters(cluster_obj, articles)
 
 dump_clusters()

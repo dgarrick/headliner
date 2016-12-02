@@ -35,11 +35,6 @@ class News:
     def get_articles(self):
         with open('src/resources/feeds.json') as feeds_file:
             feeds = json.load(feeds_file)
-        """this is OK for now. If this process gets slow as more feeds are added, reduce size of pool"""
-        #pool = Pool(len(feeds['feeds']))
-        #pool.map(self.get_feed, feeds['feeds'])
-        #pool.close()
-        #pool.join()
         for feed in feeds['feeds']:
             self.get_feed(feed)
         return self.articles

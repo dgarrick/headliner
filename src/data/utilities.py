@@ -1,32 +1,32 @@
 import numpy as np
-import json
 import re
-import redis
 import datetime
-import os
+import json
 
-def redis_kmeans_clusters(clustering, articles, should_prune, limit):
-    r_conn = redis.from_url(os.environ.get("REDIS_URL"))
+def redis_kmeans_clusters(clustering, articles, should_prune, limit, r_conn):
     clustering.cluster(prune_clusters=should_prune, limit=limit)
     clustered_vecs = clustering.cluster_to_vec_index
     redis_clusters = []
+
     for i in xrange(len(clustered_vecs)):
+
         if i in clustered_vecs:
             redis_cluster = []
             cluster = clustered_vecs[i]
+
             for index in cluster:
                 redis_article = {}
-                redis_article['raw'] = articles[index]['raw_title']
-                redis_article['source'] = articles[index]['source']
-                redis_article['link'] = articles[index]['link']
+                redis_article["raw"] = articles[index]["raw_title"]
+                redis_article["source"] = articles[index]["source"]
+                redis_article["link"] = articles[index]["link"]
+                json_article = json.dumps(redis_article)
                 redis_cluster.append(redis_article)
-            redis_clusters.append(json_cluster)
-        r_conn.set("clusters_fresh", redis_clusters)
+
+            redis_clusters.append(redis_cluster)
+
+        r_conn.set("clusters_fresh", json.dumps(redis_clusters))
         now = datetime.datetime.now()
-        r_conn.set("clusters_"+str(now.day),redis_clusters)
-    clustering.cluster(prune_clusters=should_prune, limit=limit)
-    clustered_vecs = clustering.cluster_to_vec_index
-    json_clusters = []
+        r_conn.set("clusters_"+str(now.day), json.dumps(redis_clusters))
 
 def print_ann_clusters(clustering, articles):
     zeroes_closest_indices = clustering.get_neighbors_vector(article_vecs[0])

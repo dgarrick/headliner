@@ -4,6 +4,8 @@ from clustering import Clustering
 import json
 import utilities
 import sys
+import redis
+import os
 
 def get_config():
     with open('src/resources/config.json') as config:
@@ -34,21 +36,25 @@ def get_args():
     return flags_defs
 
 def dump_clusters():
+
     args = get_args()
     if args['-train'] == '':
         args['-train'] = 'src/resources/output' + args['-k']
     w2vobj = W2V(args['-input'], args['-train'], args['-k'])
+
     news = News()
     articles = news.get_articles()
     w2vobj.train()
     article_vecs = [w2vobj.get_sentence_vector(article['cleaned_title']) for article in articles]
     cluster_obj = Clustering(article_vecs)
+    r_conn = redis.from_url(os.getenv('REDIS_URL',"redis://localhost:6379/"))
+
     if args['-cluster'] == 'agg':
         if args['-prune'] == 'true' or args['-prune'] == 'True':
-            utilities.redis_kmeans_clusters(cluster_obj, articles, True, int(args['-limit']))
+            utilities.redis_kmeans_clusters(cluster_obj, articles, True, int(args['-limit']), r_conn)
             print("redis dump complete")
         else:
-            utilities.redis_kmeans_clusters(cluster_obj, articles, False, int(args['-limit']))
+            utilities.redis_kmeans_clusters(cluster_obj, articles, False, int(args['-limit']), r_conn)
             print("redis dump complete")
     else:
         #TODO dump to redis

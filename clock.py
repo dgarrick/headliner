@@ -7,4 +7,3 @@ sched.start()
 @sched.interval_schedule(hours=6)
 def timed_clusters():
     main.dump_clusters()
-

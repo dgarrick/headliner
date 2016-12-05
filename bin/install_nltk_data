@@ -1,7 +1,9 @@
 #bin/install_nltk_data
 #!/usr/bin/env bash
 
+source $BIN_DIR/utils
 echo "-----> Starting nltk data installation"
+python -m nltk.downloader stopwords
 cd ${NLTK_DATA}
 find . -name "*.zip" -type f -delete
 echo "-----> Finished nltk data installation"

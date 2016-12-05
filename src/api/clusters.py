@@ -1,16 +1,16 @@
 import os
 import json
 import traceback
+import redis
 
 class Clusters:
-    def __init__(self, fname):
-        self.file_name = fname
+    def __init__(self, conn):
+        self.r_conn = conn
     def get(self):
-        if os.path.isfile(self.file_name):
+        clusters = self.r_conn.get("clusters_fresh")
+        if clusters is not None:
             try:
-                with open(self.file_name) as json_data:
-                    data = json.load(json_data)
-                    return data
+                return json.loads(clusters)
             except ValueError:
                 traceback.print_exc()
                 return('error loading json data!')

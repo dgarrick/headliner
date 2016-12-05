@@ -25,8 +25,6 @@ class News:
             if len(cleaned_title) == 0:
                 print "Found entry whose title is all stopwords: "+ent.title+" from: "+feed['name']
                 return
-            """python lists are threadsafe. Their data is not. We are only adding to the list,
-            not accessing or changing data, so this op is safe"""
             self.articles.append({'raw_title': ent.title,
                                   'cleaned_title': ' '.join(cleaned_title),
                                   'source': feed['name'],
@@ -35,11 +33,6 @@ class News:
     def get_articles(self):
         with open('src/resources/feeds.json') as feeds_file:
             feeds = json.load(feeds_file)
-        """this is OK for now. If this process gets slow as more feeds are added, reduce size of pool"""
-        #pool = Pool(len(feeds['feeds']))
-        #pool.map(self.get_feed, feeds['feeds'])
-        #pool.close()
-        #pool.join()
         for feed in feeds['feeds']:
             self.get_feed(feed)
         return self.articles

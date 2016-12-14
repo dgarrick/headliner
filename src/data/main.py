@@ -6,6 +6,8 @@ import utilities
 import sys
 import redis
 import os
+import tsne
+import numpy
 
 def get_config():
     with open('src/resources/config.json') as config:
@@ -46,6 +48,8 @@ def dump_clusters():
     articles = news.get_articles()
     w2vobj.train()
     article_vecs = [w2vobj.get_sentence_vector(article['cleaned_title']) for article in articles]
+    # campbell playing with tsne
+    tsne.plot(x=numpy.asarray(article_vecs))
     cluster_obj = Clustering(article_vecs)
     r_conn = redis.from_url(os.getenv('REDIS_URL',"redis://localhost:6379/"))
 

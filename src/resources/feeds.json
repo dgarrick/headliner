@@ -23,6 +23,250 @@
     {
       "name": "Al Jazeera America",
       "url": "http://america.aljazeera.com/topics/topic/categories/us.html"
+    },
+    {
+      "name": "Reddit News",
+      "url": "https://www.reddit.com/r/news.rss"
+    },
+    {
+      "name": "Reddit World News",
+      "url": "https://www.reddit.com/r/worldnews.rss"
+    },
+    {
+      "name": "Reddit Europe",
+      "url": "https://www.reddit.com/r/europe.rss"
+    },
+    {
+      "name": "CNN World",
+      "url": "http://rss.cnn.com/rss/cnn_world.rss"
+    },
+    {
+      "name": "CNN Entertainment",
+      "url": "http://rss.cnn.com/rss/cnn_showbiz.rss"
+    },
+    {
+      "name": "CNN Health",
+      "url": "http://rss.cnn.com/rss/cnn_health.rss"
+    },
+    {
+      "name": "CNN Technology",
+      "url": "http://rss.cnn.com/rss/cnn_tech.rss"
+    },
+    {
+      "name": "CNN Politics",
+      "url": "http://rss.cnn.com/rss/cnn_allpolitics.rss"
+    },
+    {
+      "name": "CNN Money",
+      "url": "http://rss.cnn.com/rss/money_latest.rss"
+    },
+    {
+      "name": "CNN U.S.",
+      "url": "http://rss.cnn.com/rss/cnn_us.rss"
+    },
+    {
+      "name": "Google News",
+      "url": "https://news.google.com/?output=rss"
+    },
+    {
+      "name": "Reuters Arts",
+      "url": "http://feeds.reuters.com/news/artsculture"
+    },
+    {
+      "name": "Reuters Business",
+      "url": "http://feeds.reuters.com/reuters/businessNews"
+    },
+    {
+      "name": "Reuters Company News",
+      "url": "http://feeds.reuters.com/reuters/companyNews"
+    },
+    {
+      "name": "Reuters Entertainment",
+      "url": "http://feeds.reuters.com/reuters/entertainment"
+    },
+    {
+      "name": "Reuters Environment",
+      "url": "http://feeds.reuters.com/reuters/environment"
+    },
+    {
+      "name": "Reuters Politics",
+      "url": "http://feeds.reuters.com/Reuters/PoliticsNews"
+    },
+    {
+      "name": "Reuters Science",
+      "url": "http://feeds.reuters.com/reuters/scienceNews"
+    },
+    {
+      "name": "Reuters Sports",
+      "url": "http://feeds.reuters.com/reuters/sportsNews"
+    },
+    {
+      "name": "Reuters Technology",
+      "url": "http://feeds.reuters.com/reuters/technologyNews"
+    },
+    {
+      "name": "Reuters US News",
+      "url": "http://feeds.reuters.com/Reuters/domesticNews"
+    },
+    {
+      "name": "Reuters World News",
+      "url": "http://feeds.reuters.com/Reuters/worldNews"
+    },
+    {
+      "name": "TIME Top Stories",
+      "url": "http://feeds2.feedburner.com/time/topstories.rss"
+    },
+    {
+      "name": "TIME Politics",
+      "url": "http://feeds.feedburner.com/timeblogs/swampland.rss"
+    },
+    {
+      "name": "TIME World",
+      "url": "http://feeds2.feedburner.com/time/world.rss"
+    },
+    {
+      "name": "TIME Technology",
+      "url": "http://feeds.feedburner.com/timeblogs/nerd_world.rss"
+    },
+    {
+      "name": "TIME Science",
+      "url": "http://feeds2.feedburner.com/time/scienceandhealth.rss"
+    },
+    {
+      "name": "The New York Times: World News",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/World.xml"
+    },
+    {
+      "name": "The New York Times: Europe News",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Europe.xml"
+    },
+    {
+      "name": "The New York Times: Asia Pacific News",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/AsiaPacific.xml"
+    },
+    {
+      "name": "The New York Times: US News",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/US.xml"
+    },
+    {
+      "name": "The New York Times: US Education",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Education.xml"
+    },
+    {
+      "name": "The New York Times: Business",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Business.xml"
+    },
+    {
+      "name": "The New York Times: Economy",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Economy.xml"
+    },
+    {
+      "name": "The New York Times: Energy and Environment",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/EnergyEnvironment.xml"
+    },
+    {
+      "name": "The New York Times: Technology",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+    },
+    {
+      "name": "The New York Times: Baseball",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Baseball.xml"
+    },
+    {
+      "name": "The New York Times: Pro Football",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/ProFootball.xml"
+    },
+    {
+      "name": "The New York Times: College Football",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/CollegeFootball.xml"
+    },
+    {
+      "name": "The New York Times: Pro Basketball",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/ProBasketball.xml"
+    },
+    {
+      "name": "The New York Times: College Basketball",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/CollegeBasketball.xml"
+    },
+    {
+      "name": "The New York Times: Soccer",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Soccer.xml"
+    },
+    {
+      "name": "The New York Times: Hockey",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Hockey.xml"
+    },
+    {
+      "name": "The New York Times: Science",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Science.xml"
+    },
+    {
+      "name": "The New York Times: Environment",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Environment.xml"
+    },
+    {
+      "name": "The New York Times: Space",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Space.xml"
+    },
+    {
+      "name": "The New York Times: Arts",
+      "url": "http://rss.nytimes.com/services/xml/rss/nyt/Arts.xml"
+    },
+    {
+      "name": "TechCrunch",
+      "url": "http://feeds.feedburner.com/techcrunch"
+    },
+    {
+      "name": "ABC Top Stories",
+      "url": "http://feeds.abcnews.com/abcnews/topstories"
+    },
+    {
+      "name": "ABC World",
+      "url": "http://feeds.abcnews.com/abcnews/internationalheadlines"
+    },
+    {
+      "name": "ABC US",
+      "url": "http://feeds.abcnews.com/abcnews/usheadlines"
+    },
+    {
+      "name": "ABC Politics",
+      "url": "http://feeds.abcnews.com/abcnews/politicsheadlines"
+    },
+    {
+      "name": "ABC Technology",
+      "url": "http://feeds.abcnews.com/abcnews/technologyheadlines"
+    },
+    {
+      "name": "ABC Health",
+      "url": "http://feeds.abcnews.com/abcnews/healthheadlines"
+    },
+    {
+      "name": "ABC Entertainment",
+      "url": "http://feeds.abcnews.com/abcnews/entertainmentheadlines"
+    },
+    {
+      "name": "ABC Money",
+      "url": "http://feeds.abcnews.com/abcnews/moneyheadlines"
+    },
+    {
+      "name": "ScienceDaily Top News",
+      "url": "https://rss.sciencedaily.com/top.xml"
+    },
+    {
+      "name": "ScienceDaily Top Science",
+      "url": "https://rss.sciencedaily.com/top/science.xml"
+    },
+    {
+      "name": "ScienceDaily Top Health",
+      "url": "https://rss.sciencedaily.com/top/health.xml"
+    },
+    {
+      "name": "ScienceDaily Top Technology",
+      "url": "https://rss.sciencedaily.com/top/technology.xml"
+    },
+    {
+      "name": "ScienceDaily Top Environment",
+      "url": "https://rss.sciencedaily.com/top/environment.xml"
     }
   ]
 }

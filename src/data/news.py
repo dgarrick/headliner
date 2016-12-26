@@ -21,7 +21,7 @@ class News:
               "' in " + str((end - start)) + " seconds")
         for ent in parsed_feed.entries:
             sanitized_title = strip_punctuation(ent.title)
-            cleaned_title = [word for word in sanitized_title.split() if word not in self.stopwords]
+            cleaned_title = [word.lower() for word in sanitized_title.split() if word not in self.stopwords]
             if len(cleaned_title) == 0:
                 print "Found entry whose title is all stopwords: "+ent.title+" from: "+feed['name']
                 return

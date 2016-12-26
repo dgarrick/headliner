@@ -57,32 +57,43 @@ class W2V:
         for index, metric in zip(indices, metrics):
             print("\tword: '" + str(self.model.vocab[index]) + "'\tvalue: " + str(metric))
 
+    # Gets the vector for a word if it is a known word.
     def get_vector(self, word):
         if word in self.model:
             return self.model[word]
 
+    # Averages the vectors of each word to vectorize the given sentence.
+    def get_sentence_vector_avg(self, sentence):
+        # Get vectors for each word in the sentence that appears in our training data, average them together and return
+        return utilities.average_vector([self.model[word] for word in sentence.split() if word in self.model], int(self.train_dimensions))
+
+    # Alternate way to vectorize a sentence, inspired by newtonian gravitational equations.
     def get_sentence_vector_newtonian(self, sentence):
         word_vecs = []
         words = []
+        # Fill parallel lists of words and their vectors
         for word in sentence.split(" "):
             word = word.lower()
             if word in self.model:
                 word_vecs.append(self.model[word])
                 words.append(word)
 
-        # Had a 1-word article once...
+        # If an article has only one word, the article's vector is that of its single word!
         if len(word_vecs) == 1:
             return word_vecs[0]
 
-        # bit hacky.
+        # We know there is at least 2 vectors. Take one of them and get the dimensionality.
         dimensions = word_vecs[0].shape[0]
         # array of 1's with length of dimensions
         sentence_vec = [1] * dimensions
+
+        # Go through every word vector and calculate the "gravitational forces" that the others apply to it.
         for vec in word_vecs:
             force = self._get_force(vec, word_vecs)
-            # One way of doing it is to avegage the forces.. there are others.
+            # One way of doing it is to average the forces.. there are others ways.
             avg_force = sum(force) / len(force)
             for i, dimensional_scalar in enumerate(vec):
+                # Scale the words vector at that dimension by the avg_force. Add to sentence vec, to be normalized later.
                 sentence_vec[i] += avg_force * dimensional_scalar
 
         assert(len(sentence_vec) == len(word_vecs[0]))
@@ -95,12 +106,15 @@ class W2V:
             distance_sum += vector[dimension] * vector[dimension]
         return math.sqrt(distance_sum)
 
+    # Normalizes a vector.
     def _normalize_vector(self, vector):
         vec_length = self._get_vector_length(vector)
         for i in xrange(len(vector)):
             vector[i] /= vec_length
         return vector
 
+    # Calculate the "force" applied by other vectors on the given vector.
+    # This force is inversely related to word distance.
     def _get_force(self, vector, other_vectors):
         dimensions = vector.shape[0]
         forces = []
@@ -112,16 +126,11 @@ class W2V:
                 forces.append(1.0 / (math.pow(distance, math.log10(dimensions))))
         return forces
 
+    # Returns the distance between two vectors of the same dimensionality.
     def _get_distance_euclidian(self, vector, other):
         dimensions = vector.shape[0]
-        # Calculate distances.
         distance_sums = 0
-        for dimension in range(0, dimensions):
+        for dimension in xrange(dimensions):
             this_dist = other[dimension] - vector[dimension]
             distance_sums += this_dist * this_dist
-        distance = math.sqrt(distance_sums)
-        return distance
-
-    def get_sentence_vector_avg(self, sentence):
-        # Get vectors for each word in the sentence that appears in our training data, average them together and return
-        return utilities.average_vector([self.model[word] for word in sentence.split() if word in self.model], int(self.train_dimensions))
+        return math.sqrt(distance_sums)

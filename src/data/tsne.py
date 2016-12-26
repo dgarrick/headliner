@@ -159,7 +159,19 @@ def tsne(x=math.array([]), dimensions=2, initial_dimensions=50, perplexity=30.0)
     return y
 
 
-def plot(x=math.array([])):
-    coords = tsne(x, initial_dimensions=x.shape[0])
-    pyplot.scatter(coords[:, 0], coords[:, 1], 20)
+def plot(labels=None, sizes=None, vecs=math.array([])):
+    if labels is None:
+        labels = []
+    coords = tsne(vecs, initial_dimensions=vecs.shape[0])
+    pyplot.scatter(coords[:, 0], coords[:, 1], sizes[:])
+
+    for label, x, y in zip(labels, coords[:, 0], coords[:, 1]):
+        pyplot.annotate(label, xy=(x, y))
+    pyplot.show()
+
+
+def plot_simple(vecs=math.array([])):
+
+    coords = tsne(vecs, initial_dimensions=vecs.shape[0])
+    pyplot.scatter(coords[:, 0], coords[:, 1], 30)
     pyplot.show()

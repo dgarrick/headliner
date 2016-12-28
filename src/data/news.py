@@ -11,6 +11,7 @@ class News:
 
     def __init__(self):
         self.articles = []
+        self.title_links = set()
         self.stopwords = stopwords.words("english")
 
     def get_feed(self, feed):
@@ -19,16 +20,23 @@ class News:
         end = timer()
         print(str(len(parsed_feed.entries)) + " Articles from '" + feed['name'] +
               "' in " + str((end - start)) + " seconds")
+        duplicates_count = 0
         for ent in parsed_feed.entries:
             sanitized_title = strip_punctuation(ent.title)
             cleaned_title = [word for word in sanitized_title.split() if word not in self.stopwords]
             if len(cleaned_title) == 0:
                 print "Found entry whose title is all stopwords: "+ent.title+" from: "+feed['name']
                 return
-            self.articles.append({'raw_title': ent.title,
-                                  'cleaned_title': ' '.join(cleaned_title),
-                                  'source': feed['name'],
-                                  'link': ent.link})
+            if (ent.title, ent.link) not in self.title_links:
+                self.title_links.add((ent.title, ent.link))
+                self.articles.append({'raw_title': ent.title,
+                                      'cleaned_title': ' '.join(cleaned_title),
+                                      'source': feed['name'],
+                                      'link': ent.link})
+            else:
+                duplicates_count += 1
+        if duplicates_count > 0:
+            print "Filtered out " + str(duplicates_count) + " duplicate articles"
 
     def get_articles(self):
         with open('src/resources/feeds.json') as feeds_file:

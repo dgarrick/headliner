@@ -31,22 +31,21 @@ def get_args():
 def dump_clusters():
 
     args = get_args()
-    if args['-train'] == '':
-        args['-train'] = 'src/resources/output' + args['-k']
+
     w2vobj = W2V(args['-input'], args['-train'], args['-k'])
 
     news = News()
     articles = news.get_articles()
     w2vobj.train()
     # Sentence vectorization by averaging
-    # article_vecs = [w2vobj.get_sentence_vector_avg(article['cleaned_title']) for article in articles]
+    article_vecs = [w2vobj.get_sentence_vector_avg(article['cleaned_title']) for article in articles]
 
-    # Sentence vectorization by "newtonian" method
-    article_vecs = []
-    for article in articles:
-        newtonian_vec = w2vobj.get_sentence_vector_newtonian(article['cleaned_title'])
-        if newtonian_vec is not None:
-            article_vecs.append(newtonian_vec)
+    #Sentence vectorization by "newtonian" method
+    #article_vecs = []
+    #for article in articles:
+        #newtonian_vec = w2vobj.get_sentence_vector_newtonian(article['cleaned_title'])
+        #if newtonian_vec is not None:
+            #article_vecs.append(newtonian_vec)
 
     cluster_obj = Clustering(article_vecs)
     r_conn = redis.from_url(os.getenv('REDIS_URL',"redis://localhost:6379/"))

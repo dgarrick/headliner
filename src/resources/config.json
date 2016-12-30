@@ -1,5 +1,5 @@
 {
-      "-input": "../resources/scorpio",
+      "-input": "src/resources/fourMonths",
       "-train": "",
       "-k": "30",
       "-cluster": "agg",

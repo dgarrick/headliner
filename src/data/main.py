@@ -12,20 +12,13 @@ def get_config():
         return json.load(config)
 
 def get_args():
-    flags_defs = {
-        '-input': '../resources/rsstraining',
-        '-train': '',
-        '-k': '30',
-        '-cluster': 'agg',
-        '-prune': 'true',
-        '-limit': '3'
-    }
+    flags_defs = get_config()
     if len(sys.argv) == 1:
         print('no flags found, continuing with properties from resources/config.json')
         print('use -input to specify input data, -train to specify training data, -cluster for clustering method (\'agg\' or \'ann\'),  \
                -k to specify a number of dimensions, -prune followed by \'true\' to prune clusters and -limit to specify \
                 a cluster threshold (e.g., 2)')
-        return get_config()
+        return flags_defs
     for i, arg in enumerate(sys.argv):
         if arg in flags_defs:
             if i+1 >= len(sys.argv):

@@ -1,7 +1,6 @@
 import json
 from timeit import default_timer as timer
 import feedparser
-from nltk.corpus import stopwords
 from multiprocessing.dummy import Pool
 
 from utilities import strip_punctuation
@@ -12,7 +11,8 @@ class News:
     def __init__(self):
         self.articles = []
         self.title_links = set()
-        self.stopwords = stopwords.words("english")
+        with open("src/resources/stopwords") as stopwords:
+            self.stopwords = set(stopwords.read().splitlines())
 
     def get_feed(self, feed):
         start = timer()

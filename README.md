@@ -8,14 +8,6 @@ I highly suggest using [virtual environments](https://virtualenvwrapper.readthed
 
 `pip install -r requirements.txt`
 
-You may also need to install corpora for nltk. Open a new python REPL instance in a terminal and type the following:
-
-`>>> import nltk`
-
-`>>> nltk.download()`
-
-And then download all corpora.
-
 To run the heroku build, first install heroku cli:
 
 https://devcenter.heroku.com/articles/heroku-command-line

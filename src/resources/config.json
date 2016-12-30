@@ -1,7 +1,7 @@
 {
       "-input": "src/resources/fourMonths",
       "-train": "",
-      "-k": "30",
+      "-k": "70",
       "-cluster": "agg",
       "-prune": "True",
       "-limit": "3"

@@ -83,6 +83,9 @@ class W2V:
             return None
         if len(word_vecs) == 1:
             return numpy.asarray(word_vecs[0])
+        # Special case if the article only has one word multiple times!
+        if len(set(words)) == 1:
+            return numpy.asarray(word_vecs[0])
 
         # We know there is at least 2 vectors. Take one of them and get the dimensionality.
         dimensions = word_vecs[0].shape[0]

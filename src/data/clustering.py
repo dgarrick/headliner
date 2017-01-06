@@ -1,16 +1,19 @@
 from annoy import AnnoyIndex
-from sklearn.cluster import AgglomerativeClustering
+from sklearn.cluster import KMeans
+import utilities
 import numpy
 
 class Clustering:
 
-    def __init__(self, vecs):
+    def __init__(self, vecs, w2v):
         self.vec_length = len(vecs[0])
         self.vecs = vecs
-        self.num_clusters = int(len(vecs)*.66)
+        self.num_clusters = int(len(vecs)*.5)
         self.cluster_to_vec_index = {}
         self.labels = []
-        self.cluster_func = AgglomerativeClustering(n_clusters=self.num_clusters, affinity="manhattan", linkage="complete")
+        self.w2v = w2v
+        #self.cluster_func = AgglomerativeClustering(n_clusters=self.num_clusters, affinity="manhattan", linkage="complete")
+        self.cluster_func = KMeans(n_clusters=self.num_clusters)
         self.annoy = AnnoyIndex(self.vec_length, metric='euclidean')
         for i, vec in enumerate(self.vecs):
             if vec is not None:
@@ -26,6 +29,16 @@ class Clustering:
         for i in xrange(self.num_clusters):
             if len(self.cluster_to_vec_index[i]) < limit:
                 del self.cluster_to_vec_index[i]
+
+    def label_clusters(self, articles):
+        for j in xrange(0, self.num_clusters):
+            clust_vecs = []
+            if j in self.cluster_to_vec_index:
+                for k in self.cluster_to_vec_index[j]:
+                    clust_vecs.append(self.vecs[k])
+                cluster_vec = utilities.average_vector(clust_vecs, self.vec_length)
+                indexes, metrics = self.w2v.model.cosine(cluster_vec)
+                print(self.w2v.model.vocab[indexes[0]])
 
     def cluster(self, limit=2, prune_clusters=False):
         vec_index_to_cluster = self.cluster_func.fit_predict(self.vecs)

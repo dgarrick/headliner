@@ -24,6 +24,7 @@ def redis_kmeans_clusters(clustering, articles, should_prune, limit, r_conn):
 
             redis_clusters.append(redis_cluster)
 
+        clustering.label_clusters(articles)
         r_conn.set("clusters_fresh", json.dumps(redis_clusters))
         now = datetime.datetime.now()
         r_conn.set("clusters_"+str(now.day), json.dumps(redis_clusters))

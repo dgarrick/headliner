@@ -39,4 +39,4 @@ vecs.append(get_sentence_vector_avg(model, "CES 2017: The jacket that lets you s
 vecs.append(get_sentence_vector_avg(model, "CES 2017: Sony chief pledges to detangle confusing TV tech"))
 vec = average_vector(vecs, 70)
 
-print(model.most_similar(positive=[vec], negative=[], topn=10))
+print(model.similar_by_vector(vec))

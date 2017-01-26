@@ -1,5 +1,5 @@
 from annoy import AnnoyIndex
-from sklearn.cluster import KMeans
+from sklearn.cluster import AgglomerativeClustering
 import utilities
 import numpy
 
@@ -12,8 +12,7 @@ class Clustering:
         self.cluster_to_vec_index = {}
         self.labels = []
         self.w2v = w2v
-        #self.cluster_func = AgglomerativeClustering(n_clusters=self.num_clusters, affinity="manhattan", linkage="complete")
-        self.cluster_func = KMeans(n_clusters=self.num_clusters)
+        self.cluster_func = AgglomerativeClustering(n_clusters=self.num_clusters, affinity="manhattan", linkage="complete")
         self.annoy = AnnoyIndex(self.vec_length, metric='euclidean')
         for i, vec in enumerate(self.vecs):
             if vec is not None:
@@ -45,15 +44,9 @@ class Clustering:
             if j in self.cluster_to_vec_index:
                 for k in self.cluster_to_vec_index[j]:
                     clust_vecs.append(self.vecs[k])
-                    print(articles[k]["raw_title"])
                 cluster_vec = utilities.average_vector(clust_vecs, self.vec_length)
                 label_idx = self.get_cluster_label_idx(cluster_vec)
-                print(label_idx)
-                for idx in range(0,len(label_idx)):
-                    print(self.w2v.model.vocab[label_idx[idx]])
-                print("\n")
-                #print(self.w2v.model.analogy(label, []))
-                cluster_index_to_label[j] = label_idx[0]
+                cluster_index_to_label[j] = self.w2v.model.vocab[label_idx[0]]
         return cluster_index_to_label
 
     def cluster(self, limit=2, prune_clusters=False):

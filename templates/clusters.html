@@ -1,15 +1,25 @@
 <!doctype html>
 <title>headlinr</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $( function() {
+    $( "#accordion" ).accordion({heightStyle: "content"});
+  } );
+</script>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='clusters.css') }}">
 {% block body %}
 <h1 class="headline">headlinr</h1>
+<div id="accordion">
 {% for clust in clusters %}
+  <div class="label">
+    <h1>{{ loop.index }}. {{ clust['label'] }}</h1>
+  </div>
   <div class="cluster">
-    {% for link in clust %}
-      <div class="link">
-        <a href={{ link['link'] }} style="display:block;">{{ link['raw']  }}</a>
-      </div>
+    {% for link in clust['articles'] %}
+      <a href={{ link['link'] }} style="display:block;" class="link">{{ link['raw'] }} | {{ link['source'] }}</a>
     {% endfor %}
   </div>
 {% endfor %}
+</div>
 {% endblock %}

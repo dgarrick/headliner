@@ -22,6 +22,7 @@ class W2V:
         if not os.path.isfile(self.trained_fname):
             print("Previous training '" + self.trained_fname + "' not found. Begin training on input '" +
                   self.input_fname + "' into " + str(self.train_dimensions) + " dimensions ...")
+            self.trained_fname = 'src/resources/output' + self.train_dimensions
             word2vec.word2vec(self.input_fname, self.trained_fname, size=self.train_dimensions)
         else:
             print("Trained data seems to exist at '" + self.trained_fname + "'")

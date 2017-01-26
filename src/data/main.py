@@ -48,7 +48,7 @@ def dump_clusters():
         if newtonian_vec is not None:
             article_vecs.append(newtonian_vec)'''
 
-    cluster_obj = Clustering(article_vecs)
+    cluster_obj = Clustering(article_vecs, w2vobj)
     r_conn = redis.from_url(os.getenv('REDIS_URL',"redis://localhost:6379/"))
 
     if args['-cluster'] == 'agg':

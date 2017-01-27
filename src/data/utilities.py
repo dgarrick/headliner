@@ -29,10 +29,8 @@ def redis_kmeans_clusters(clustering, articles, should_prune, limit, r_conn):
 
         redis_clusters.sort(key=lambda x: len(x['articles']), reverse=True)
         r_conn.set("clusters_fresh", json.dumps(redis_clusters))
-        #r_conn.set("labels_fresh", json.dumps(redis_labels))
         now = datetime.datetime.now()
         r_conn.set("clusters_"+str(now.day), json.dumps(redis_clusters))
-        #r_conn.set("labels_"+str(now.day), json.dumps(redis_labels))
 
 def print_ann_clusters(clustering, articles):
     zeroes_closest_indices = clustering.get_neighbors_vector(article_vecs[0])

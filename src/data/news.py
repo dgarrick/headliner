@@ -2,6 +2,7 @@ import json
 from timeit import default_timer as timer
 import feedparser
 from multiprocessing.dummy import Pool
+import re
 
 from utilities import strip_punctuation
 
@@ -23,7 +24,7 @@ class News:
         duplicates_count = 0
         for ent in parsed_feed.entries:
             sanitized_title = strip_punctuation(ent.title)
-            cleaned_title = [word.lower() for word in sanitized_title.split() if word not in self.stopwords]
+            cleaned_title = [word.lower() for word in re.split(" |- ", sanitized_title) if word not in self.stopwords]
             if len(cleaned_title) == 0:
                 print "Found entry whose title is all stopwords: "+ent.title+" from: "+feed['name']
                 return

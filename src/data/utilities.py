@@ -6,7 +6,7 @@ import json
 def redis_kmeans_clusters(clustering, articles, should_prune, limit, r_conn):
     clustering.cluster(prune_clusters=should_prune, limit=limit)
     clustered_vecs = clustering.cluster_to_vec_index
-    cluster_labels = clustering.label_clusters(articles)
+    cluster_labels = clustering.label_and_merge_clusters(articles)
     redis_clusters = []
 
     for i in xrange(len(clustered_vecs)):

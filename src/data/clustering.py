@@ -18,12 +18,7 @@ class Clustering:
             if vec is not None:
                 self.annoy.add_item(i, vec)
         print("Built an index with " + str(self.annoy.get_n_items()) + " headlines")
-        self.annoy_vocab = AnnoyIndex(self.vec_length, metric='angular')
-        for i, word in enumerate(self.w2v.model.vectors):
-            if word is not None:
-                self.annoy_vocab.add_item(i, word)
         self.annoy.build(10)
-        self.annoy_vocab.build(5)
 
     def get_neighbors_vector(self, vec):
         return self.annoy.get_nns_by_vector(vec, 10, include_distances=True)
@@ -37,18 +32,40 @@ class Clustering:
             if len(self.cluster_to_vec_index[i]) < limit:
                 del self.cluster_to_vec_index[i]
 
+    def get_most_freq_word(self, headline_vocab, headline_vocab_dict, label_idx):
+        most_freq_word = headline_vocab[label_idx[0]]
+        freq = headline_vocab_dict[most_freq_word]
+        for idx in label_idx:
+            if headline_vocab_dict[headline_vocab[idx]] > freq:
+                most_freq_word = headline_vocab[idx]
+                freq = headline_vocab_dict[headline_vocab[idx]]
+        return most_freq_word
+
     def label_clusters(self, articles):
         """this should probably not be called directly: use
         label_and_merge_clusters instead"""
         cluster_index_to_label = {}
-        for j in xrange(0, self.num_clusters):
+        for c in range(self.num_clusters):
+            annoy_headline_vocab = AnnoyIndex(self.vec_length, metric='angular')
+            headline_vocab = []
+            headline_vocab_dict = {}
             clust_vecs = []
-            if j in self.cluster_to_vec_index:
-                for k in self.cluster_to_vec_index[j]:
-                    clust_vecs.append(self.vecs[k])
+            if c in self.cluster_to_vec_index:
+                for index in self.cluster_to_vec_index[c]:
+                    headline = articles[index]["cleaned_title"]
+                    clust_vecs.append(self.vecs[index])
+                    for word in headline.split(' '):
+                        if word in self.w2v.model:
+                            if word in headline_vocab_dict:
+                                headline_vocab_dict[word] = headline_vocab_dict[word] + 1
+                            else:
+                                headline_vocab_dict[word] = 1
+                            headline_vocab.append(word)
+                            annoy_headline_vocab.add_item(len(headline_vocab)-1, self.w2v.model[word])
+                annoy_headline_vocab.build(5)
                 cluster_vec = utilities.average_vector(clust_vecs, self.vec_length)
-                label_idx = self.get_cluster_label_idx(cluster_vec)
-                cluster_index_to_label[j] = self.w2v.model.vocab[label_idx[0]]
+                label_idx = annoy_headline_vocab.get_nns_by_vector(cluster_vec, 5, include_distances=False)
+                cluster_index_to_label[c] = self.get_most_freq_word(headline_vocab, headline_vocab_dict, label_idx)
         return cluster_index_to_label
 
     def label_and_merge_clusters(self, articles):

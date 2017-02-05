@@ -8,29 +8,24 @@ def redis_kmeans_clusters(clustering, articles, should_prune, limit, r_conn):
     clustered_vecs = clustering.cluster_to_vec_index
     cluster_labels = clustering.label_and_merge_clusters(articles)
     redis_clusters = []
-
-    for i in xrange(len(clustered_vecs)):
-
-        if i in clustered_vecs:
-            redis_cluster = {}
-            cluster_articles = []
-            cluster = clustered_vecs[i]
-
-            for index in cluster:
-                redis_article = {}
-                redis_article["raw"] = articles[index]["raw_title"]
-                redis_article["source"] = articles[index]["source"]
-                redis_article["link"] = articles[index]["link"]
-                json_article = json.dumps(redis_article)
-                cluster_articles.append(redis_article)
-            redis_cluster['articles'] = cluster_articles
-            redis_cluster['label'] = cluster_labels[i]
-            redis_clusters.append(redis_cluster)
-
-        redis_clusters.sort(key=lambda x: len(x['articles']), reverse=True)
-        r_conn.set("clusters_fresh", json.dumps(redis_clusters))
-        now = datetime.datetime.now()
-        r_conn.set("clusters_"+str(now.day), json.dumps(redis_clusters))
+    for i in clustered_vecs.keys():
+        redis_cluster = {}
+        cluster_articles = []
+        cluster = clustered_vecs[i]
+        for index in cluster:
+            redis_article = {}
+            redis_article["raw"] = articles[index]["raw_title"]
+            redis_article["source"] = articles[index]["source"]
+            redis_article["link"] = articles[index]["link"]
+            json_article = json.dumps(redis_article)
+            cluster_articles.append(redis_article)
+        redis_cluster['articles'] = cluster_articles
+        redis_cluster['label'] = cluster_labels[i]
+        redis_clusters.append(redis_cluster)
+    redis_clusters.sort(key=lambda x: len(x['articles']), reverse=True)
+    r_conn.set("clusters_fresh", json.dumps(redis_clusters))
+    now = datetime.datetime.now()
+    r_conn.set("clusters_"+str(now.day), json.dumps(redis_clusters))
 
 def print_ann_clusters(clustering, articles):
     zeroes_closest_indices = clustering.get_neighbors_vector(article_vecs[0])

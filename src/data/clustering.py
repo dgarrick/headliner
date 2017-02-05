@@ -45,52 +45,48 @@ class Clustering:
         """this should probably not be called directly: use
         label_and_merge_clusters instead"""
         cluster_index_to_label = {}
-        for c in range(self.num_clusters):
+        for c in self.cluster_to_vec_index.keys():
             annoy_headline_vocab = AnnoyIndex(self.vec_length, metric='angular')
             headline_vocab = []
             headline_vocab_dict = {}
             clust_vecs = []
-            if c in self.cluster_to_vec_index:
-                for index in self.cluster_to_vec_index[c]:
-                    headline = articles[index]["cleaned_title"]
-                    clust_vecs.append(self.vecs[index])
-                    for word in headline.split(' '):
-                        if word in self.w2v.model:
-                            if word in headline_vocab_dict:
-                                headline_vocab_dict[word] = headline_vocab_dict[word] + 1
-                            else:
-                                headline_vocab_dict[word] = 1
-                            headline_vocab.append(word)
-                            annoy_headline_vocab.add_item(len(headline_vocab)-1, self.w2v.model[word])
-                annoy_headline_vocab.build(5)
-                cluster_vec = utilities.average_vector(clust_vecs, self.vec_length)
-                label_idx = annoy_headline_vocab.get_nns_by_vector(cluster_vec, 5, include_distances=False)
-                cluster_index_to_label[c] = self.get_most_freq_word(headline_vocab, headline_vocab_dict, label_idx)
+            for index in self.cluster_to_vec_index[c]:
+                headline = articles[index]["cleaned_title"]
+                clust_vecs.append(self.vecs[index])
+                for word in headline.split(' '):
+                    if word in self.w2v.model:
+                        if word in headline_vocab_dict:
+                            headline_vocab_dict[word] = headline_vocab_dict[word] + 1
+                        else:
+                            headline_vocab_dict[word] = 1
+                        headline_vocab.append(word)
+                        annoy_headline_vocab.add_item(len(headline_vocab)-1, self.w2v.model[word])
+            annoy_headline_vocab.build(5)
+            cluster_vec = utilities.average_vector(clust_vecs, self.vec_length)
+            label_idx = annoy_headline_vocab.get_nns_by_vector(cluster_vec, 5, include_distances=False)
+            cluster_index_to_label[c] = self.get_most_freq_word(headline_vocab, headline_vocab_dict, label_idx)
         return cluster_index_to_label
 
     def label_and_merge_clusters(self, articles):
         """merges all clusters with similar labels"""
         cluster_index_to_label = self.label_clusters(articles)
         label_to_cluster_index = {}
-        for c_idx in range(0, self.num_clusters):
-            if c_idx in cluster_index_to_label:
-                label = cluster_index_to_label[c_idx]
-                if label in label_to_cluster_index:
-                    label_to_cluster_index[label].append(c_idx)
-                else:
-                    label_to_cluster_index[label] = [c_idx]
+        for c_idx in cluster_index_to_label.keys():
+            label = cluster_index_to_label[c_idx]
+            if label in label_to_cluster_index:
+                label_to_cluster_index[label].append(c_idx)
+            else:
+                label_to_cluster_index[label] = [c_idx]
         for label, clust_list in label_to_cluster_index.iteritems():
             if len(clust_list) > 1:
                 merge_clust = clust_list[0]
-                for i in range(1, len(clust_list)):
+                for i in xrange(1, len(clust_list)):
                     cur_clust = clust_list[i]
                     cur_vecs = self.cluster_to_vec_index[cur_clust]
                     self.cluster_to_vec_index[merge_clust].extend(cur_vecs)
                     del self.cluster_to_vec_index[cur_clust]
                     del cluster_index_to_label[cur_clust]
         return cluster_index_to_label
-
-
 
     def cluster(self, limit=2, prune_clusters=False):
         vec_index_to_cluster = self.cluster_func.fit_predict(self.vecs)

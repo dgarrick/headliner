@@ -10,7 +10,7 @@ I highly suggest using [virtual environments](https://virtualenvwrapper.readthed
 
 To run the heroku build, first install heroku cli:
 
-https://devcenter.heroku.com/articles/heroku-command-line
+http://devcenter.heroku.com/articles/heroku-command-line
 
 For a local build, run:
 

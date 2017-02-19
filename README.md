@@ -1,6 +1,6 @@
 # headliner
 
-https://headlinr.herokuapp.com/
+http://headlinr.herokuapp.com/
 
 ### Prereqs (all available through PyPI)
 
@@ -10,7 +10,7 @@ I highly suggest using [virtual environments](https://virtualenvwrapper.readthed
 
 To run the heroku build, first install heroku cli:
 
-http://devcenter.heroku.com/articles/heroku-command-line
+https://devcenter.heroku.com/articles/heroku-command-line
 
 For a local build, run:
 

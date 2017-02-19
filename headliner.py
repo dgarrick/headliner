@@ -5,16 +5,22 @@ from src.api.cors import crossdomain
 import redis
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 
 #default to local redis defaults if heroku config var not available
 r_conn = redis.from_url(os.getenv('REDIS_URL',"redis://localhost:6379/"))
 
 
-@app.route('/')
+@app.route('/clusters')
 @crossdomain(origin='*')
 def get__fresh_clusters():
     return jsonify(Clusters(r_conn).get())
+
+
+@app.route('/')
+@crossdomain(origin='*')
+def serve_page():
+    return app.send_static_file('index.html')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

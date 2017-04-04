@@ -1,5 +1,5 @@
 {
-      "-input": "src/resources/jan",
+      "-input": "src/resources/octToApr",
       "-train": "",
       "-k": "70",
       "-cluster": "agg",

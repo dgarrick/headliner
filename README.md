@@ -1,5 +1,7 @@
 # headliner
 
+![headliner_screenshot](https://cloud.githubusercontent.com/assets/2948894/24990892/be02364c-1fdc-11e7-8ba1-88778cd237f7.png)
+
 http://headlinr.herokuapp.com/
 
 ### Prereqs (all available through PyPI)

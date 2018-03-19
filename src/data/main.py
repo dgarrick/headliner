@@ -59,7 +59,6 @@ def dump_clusters():
             utilities.redis_kmeans_clusters(cluster_obj, articles, False, int(args['-limit']), r_conn)
             print("redis dump complete")
     else:
-        #TODO dump to redis
         utilties.print_ann_clusters(cluster_obj, articles)
 
 dump_clusters()

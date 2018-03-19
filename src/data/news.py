@@ -3,6 +3,8 @@ from timeit import default_timer as timer
 import feedparser
 from multiprocessing.dummy import Pool
 import re
+import nltk
+from nltk.stem.wordnet import WordNetLemmatizer
 
 from utilities import strip_punctuation
 
@@ -12,6 +14,7 @@ class News:
     def __init__(self):
         self.articles = []
         self.title_links = set()
+        self.lemmatizer = WordNetLemmatizer()
         with open("src/resources/stopwords") as stopwords:
             self.stopwords = set(stopwords.read().splitlines())
 
@@ -24,7 +27,7 @@ class News:
         duplicates_count = 0
         for ent in parsed_feed.entries:
             sanitized_title = strip_punctuation(ent.title)
-            cleaned_title = [word.lower() for word in re.split(" |- ", sanitized_title) if word not in self.stopwords]
+            cleaned_title = self.clean_title(sanitized_title)
             if len(cleaned_title) == 0:
                 print "Found entry whose title is all stopwords: "+ent.title+" from: "+feed['name']
                 return
@@ -45,3 +48,6 @@ class News:
         for feed in feeds['feeds']:
             self.get_feed(feed)
         return self.articles
+
+    def clean_title(self, title):
+        return [self.lemmatizer.lemmatize(word.lower()) for word in re.split(" |- ", title) if word not in self.stopwords]

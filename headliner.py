@@ -20,7 +20,6 @@ def get__fresh_clusters():
 @app.route('/')
 @crossdomain(origin='*')
 def serve_page():
-    print(r_conn)
     return app.send_static_file('index.html')
 
 if __name__ == "__main__":

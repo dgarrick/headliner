@@ -67,6 +67,6 @@ def average_vector(vecs, k):
 def strip_punctuation(sentence):
     return re.sub(r'([^\s\w]|_)+', '', sentence).lower()
 
-"""Takes a list of strings and lemmatizes each string"""
+
 def lemmatize_word(word):
     return WordNetLemmatizer().lemmatize(word.lower())

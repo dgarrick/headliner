@@ -70,7 +70,6 @@ class Clustering:
 
     def label_and_merge_clusters(self, articles):
         """merges all clusters with similar labels"""
-        print("labelling and merging clusters")
         cluster_index_to_label = self.label_clusters(articles)
         label_to_cluster_index = {}
         for c_idx in cluster_index_to_label.keys():

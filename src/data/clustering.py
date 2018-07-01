@@ -2,6 +2,7 @@ from annoy import AnnoyIndex
 from sklearn.cluster import AgglomerativeClustering
 import utilities
 import numpy
+from utilities import lemmatize_word
 
 class Clustering:
 
@@ -64,11 +65,12 @@ class Clustering:
             annoy_headline_vocab.build(5)
             cluster_vec = utilities.average_vector(clust_vecs, self.vec_length)
             label_idx = annoy_headline_vocab.get_nns_by_vector(cluster_vec, 5, include_distances=False)
-            cluster_index_to_label[c] = self.get_most_freq_word(headline_vocab, headline_vocab_dict, label_idx)
+            cluster_index_to_label[c] = lemmatize_word(self.get_most_freq_word(headline_vocab, headline_vocab_dict, label_idx))
         return cluster_index_to_label
 
     def label_and_merge_clusters(self, articles):
         """merges all clusters with similar labels"""
+        print("labelling and merging clusters")
         cluster_index_to_label = self.label_clusters(articles)
         label_to_cluster_index = {}
         for c_idx in cluster_index_to_label.keys():

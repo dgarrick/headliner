@@ -50,6 +50,7 @@ def dump_clusters():
 
     cluster_obj = Clustering(article_vecs, w2vobj)
     r_conn = redis.from_url(os.getenv('REDIS_URL',"redis://localhost:6379/"))
+    print(r_conn)
 
     if args['-cluster'] == 'agg':
         if args['-prune'] == 'true' or args['-prune'] == 'True':
@@ -58,7 +59,7 @@ def dump_clusters():
         else:
             utilities.redis_kmeans_clusters(cluster_obj, articles, False, int(args['-limit']), r_conn)
             print("redis dump complete")
-    else:
-        utilties.print_ann_clusters(cluster_obj, articles)
+    """else:
+        utilities.print_ann_clusters(cluster_obj, articles)"""
 
 dump_clusters()

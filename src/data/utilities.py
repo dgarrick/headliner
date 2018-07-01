@@ -2,6 +2,7 @@ import numpy as np
 import re
 import datetime
 import json
+from nltk.stem.wordnet import WordNetLemmatizer
 
 def redis_kmeans_clusters(clustering, articles, should_prune, limit, r_conn):
     clustering.cluster(prune_clusters=should_prune, limit=limit)
@@ -65,3 +66,7 @@ def average_vector(vecs, k):
 
 def strip_punctuation(sentence):
     return re.sub(r'([^\s\w]|_)+', '', sentence).lower()
+
+"""Takes a list of strings and lemmatizes each string"""
+def lemmatize_word(word):
+    return WordNetLemmatizer().lemmatize(word.lower())

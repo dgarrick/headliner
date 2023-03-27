@@ -9,4 +9,4 @@ gunicorn==19.6.0
 Flask==1.0
 virtualenv==15.0.2
 APScheduler==3.0.0
-redis==2.10.5
+redis==4.5.3

@@ -31,8 +31,8 @@ def print_ann_clusters(clustering, articles):
     zeroes_closest_indices = clustering.get_neighbors_vector(article_vecs[0])
     print("The ten closest articles to: '" + articles[0]['raw_title'] + "' are...")
     for index, distance in zip(zeroes_closest_indices[0], zeroes_closest_indices[1]):
-        print articles[index]['raw_title'] + "\n\tNews Source: " + articles[index]['source'] \
-              + "\n\theadline cleaned: " + articles[index]['cleaned_title'] + "\n\tDistance: " + str(distance) + "\n"
+        print (articles[index]['raw_title'] + "\n\tNews Source: " + articles[index]['source'] \
+              + "\n\theadline cleaned: " + articles[index]['cleaned_title'] + "\n\tDistance: " + str(distance) + "\n")
 
 def print_random_kmeans_cluster(clustering, articles, should_prune, limit):
   clustering.cluster(prune_clusters=should_prune, limit=limit)
@@ -43,7 +43,7 @@ def print_random_kmeans_cluster(clustering, articles, should_prune, limit):
       print(cluster)
       print("Cluster " + str(i))
       for index in cluster:
-          print articles[index]['raw_title'] + "\n\tNews Source: " + articles[index]['source'] \
+          print (articles[index]['raw_title']) + "\n\tNews Source: " + articles[index]['source'] \
                 + "\n\theadline cleaned: " + articles[index]['cleaned_title']
 
 

@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "headliner"
+version = "0.1.0"
+description = ""
+authors = ["Daniel Garrick <danieljamesgarrick@gmail.com>", "Campbell Compton <unknown@unknown.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^1.24.3"
+redis = "^4.5.4"
+Flask = "^2.3.2"
+Cython = "^0.29.34"
+word2vec = "^0.11.1"
+feedparser = "^6.0.10"
+annoy = "^1.17.2"
+scikit-learn = "^1.2.2"
+apscheduler = "^3.10.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

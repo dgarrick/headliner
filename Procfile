@@ -1,2 +1,2 @@
 web: gunicorn headliner:app --log-file -
-clock: python clock.py
+clock: python src/data/clock.py

@@ -16,6 +16,7 @@ feedparser = "^6.0.10"
 annoy = "^1.17.2"
 scikit-learn = "^1.2.2"
 apscheduler = "^3.10.1"
+gunicorn = "^20.1.0"
 
 
 [build-system]

@@ -6,9 +6,7 @@ http://headlinr.herokuapp.com/
 
 ### Prereqs (all available through PyPI)
 
-I highly suggest using [virtual environments](https://virtualenvwrapper.readthedocs.io/en/latest/) instead of installing packages globally!
-
-`pip install -r requirements.txt`
+Headlinr uses poetry for build management.
 
 To run the heroku build, first install heroku cli:
 

@@ -1,6 +1,6 @@
 // Get JSON from API
 var request = new XMLHttpRequest();
-request.open('GET', 'http://headlinr.herokuapp.com/clusters', true);
+request.open('GET', 'https://winter-pivot-385718.uc.r.appspot.com/clusters', true);
 var myData;
 
 request.onload = function() {

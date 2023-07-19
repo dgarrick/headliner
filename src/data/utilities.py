@@ -3,7 +3,7 @@ import re
 import datetime
 import json
 
-def redis_kmeans_clusters(clustering, articles, should_prune, limit, r_conn):
+def redis_kmeans_clusters(clustering, articles, should_prune, limit, redis_client):
     clustering.cluster(prune_clusters=should_prune, limit=limit)
     clustered_vecs = clustering.cluster_to_vec_index
     cluster_labels = clustering.label_and_merge_clusters(articles)
@@ -23,9 +23,9 @@ def redis_kmeans_clusters(clustering, articles, should_prune, limit, r_conn):
         redis_cluster['label'] = cluster_labels[i]
         redis_clusters.append(redis_cluster)
     redis_clusters.sort(key=lambda x: len(x['articles']), reverse=True)
-    r_conn.set("clusters_fresh", json.dumps(redis_clusters))
+    redis_client.set("clusters_fresh", json.dumps(redis_clusters))
     now = datetime.datetime.now()
-    r_conn.set("clusters_"+str(now.day), json.dumps(redis_clusters))
+    redis_client.set("clusters_"+str(now.day), json.dumps(redis_clusters))
 
 def print_ann_clusters(clustering, articles):
     zeroes_closest_indices = clustering.get_neighbors_vector(article_vecs[0])

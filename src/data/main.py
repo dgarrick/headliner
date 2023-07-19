@@ -49,14 +49,16 @@ def dump_clusters():
             article_vecs.append(newtonian_vec)'''
 
     cluster_obj = Clustering(article_vecs, w2vobj)
-    r_conn = redis.from_url(os.getenv('REDIS_URL',"redis://localhost:6379/"))
+    redis_host = os.environ.get('REDISHOST', 'localhost')
+    redis_port = int(os.environ.get('REDISPORT', 6379))
+    redis_client = redis.StrictRedis(host=redis_host, port=redis_port)
 
     if args['-cluster'] == 'agg':
         if args['-prune'] == 'true' or args['-prune'] == 'True':
-            utilities.redis_kmeans_clusters(cluster_obj, articles, True, int(args['-limit']), r_conn)
+            utilities.redis_kmeans_clusters(cluster_obj, articles, True, int(args['-limit']), redis_client)
             print("redis dump complete")
         else:
-            utilities.redis_kmeans_clusters(cluster_obj, articles, False, int(args['-limit']), r_conn)
+            utilities.redis_kmeans_clusters(cluster_obj, articles, False, int(args['-limit']), redis_client)
             print("redis dump complete")
     else:
         #TODO dump to redis

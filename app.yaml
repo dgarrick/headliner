@@ -1,0 +1,9 @@
+runtime: python311
+
+env_variables:
+  REDISHOST: '10.201.104.147'
+  REDISPORT: '6379'
+
+# Update with Serverless VPC Access connector details
+vpc_access_connector:
+  name: 'projects/winter-pivot-385718/locations/us-central1/connectors/redis-connecter'
